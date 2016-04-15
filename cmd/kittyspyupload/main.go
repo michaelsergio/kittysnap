@@ -23,7 +23,7 @@ func RunEverySeconds(seconds uint32, f func()) {
 
 func main() {
 	camera := NewMockCamera("test.jpg")
-	uploader := NewMockUploader(0)
+	uploader := NewMockUploader(UploadSuccess)
 
 	ctx := Context{uploader: &uploader, camera: &camera}
 
