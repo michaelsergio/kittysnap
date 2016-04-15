@@ -23,7 +23,8 @@ func RunEverySeconds(seconds uint32, f func()) {
 
 func main() {
 	camera := NewMockCamera("test.jpg")
-	uploader := NewMockUploader(UploadSuccess)
+	uploader := NewMockUploader(0)
+	//uploader := NewMockUploader(UploadSuccess)
 
 	ctx := Context{uploader: &uploader, camera: &camera}
 
@@ -31,7 +32,7 @@ func main() {
 		imagefile := ctx.camera.TakeImage()
 		result, err := ctx.uploader.Upload(imagefile)
 		if err != nil {
-			fmt.Println("failed to upload:", err)
+			fmt.Println("failed to upload:", err.Error())
 			return
 		}
 		fmt.Println("Uploaded:", result)

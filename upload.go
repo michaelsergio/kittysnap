@@ -69,7 +69,7 @@ func Upload() {
 		Key:    &key,
 	})
 	if err != nil {
-		log.Printf("Failed to upload data to %s/%s, %s\n", bucket, key, err)
+		log.Printf("Failed to upload data to %s/%s, %s\n", bucket, key, err.Error())
 		return
 	}
 
