@@ -1,0 +1,59 @@
+Infrastructure
+==================
+
+S3 as my image storage layer.
+I take in an image every hour.
+Upload it to an S3 bucket.
+Need to report to some datastore (AWS Simple DB [SDB]) (Use Amazon DynamoDB)
+    image id??? / date_taken
+    SDB - index/Domain/File/Table Select DESC timestamp.
+Can the above reporting be done using only s3?
+A tiny little server to report all images_dates in data store.
+    Paginate to 10 per page.
+[Expensive - Make a thumbnail for each image?]
+
+I can bucket by prefix and delimiter
+201605/
+Year Month/ folders.
+
+
+v0:
+* Build mockable skeleton and offline sources for everything.
+  x Use json flatfile as DB
+  x Use test image and delay as image.
+  x Serve static html.
+  * Mock the go skeleton (upload, camera)
+  * Make the go timer.
+  * Make ajax request to local source (go server i guess)
+  * Add tests
+* Upload Image to s3
+* Implement Uploadedr module.
+* Figure out how to make a good timer in Go for capturing images.
+* Add s3object entry to dyanmodb with timestamp
+* Set up secondary index for date created in dyamodb.
+* Query Simple database for s3objects by timestamp
+* Return query results to go and parse.
+* Bootstrap based simple html page.
+* Make static site with s3 serving webpage.
+* Fill in DOM via javascript ajax call rather than static html serve.
+    knocks out need for go server to serve content.
+* Put up Basic Auth
+* Route 53 from a domain to static page.
+
+* Dyamodb vs postgres vs mongo
+
+x Capture images
+
+URLs: v0
+
+/ List all images by date: Paginated 20
+  Click on image link to see images
+
+v1: 
+* Show thumbnails instead of image links.
+* List month range with total (GROUP BY year-month)
+* Add nice css and design.
+* EC2 instance for serving basic Go template.
+* Create a cleaner interface surrounding business logic and AWS integration.
+
+
