@@ -10,11 +10,12 @@ import (
 )
 
 func main() {
+	// Seems to be broken
 	fmt.Println("Testing Dynamo Insert")
 
 	creds := credentials.NewEnvCredentials()
 	config := aws.NewConfig().
-		WithRegion("us-east-1").
+		WithRegion("us-west-2").
 		WithCredentials(creds).
 		WithCredentialsChainVerboseErrors(true)
 
@@ -22,7 +23,7 @@ func main() {
 	db := NewDynamoDatabase(config)
 	resp, err := db.PutItem(key, "world")
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("Put Error:", err)
 		return
 	}
 	fmt.Println(resp)
