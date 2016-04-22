@@ -3,6 +3,9 @@ include Keys
 
 KEY_ENV=AWS_ACCESS_KEY_ID=$(ID) AWS_SECRET_ACCESS_KEY=$(KEY) 
 
+run-mock:
+	$(KEY_ENV) go run cmd/kittyspyupload/mock_main.go
+
 run:
 	$(KEY_ENV) go run cmd/kittyspyupload/main.go
 
@@ -14,6 +17,9 @@ run-json:
 
 run-realinsert:
 	$(KEY_ENV) go run cmd/kittyspyupload/realinsert.go
+
+run-uploadsamplefile:
+	$(KEY_ENV) go run cmd/kittyspyupload/upload_real.go
 
 test:
 	go test -v 

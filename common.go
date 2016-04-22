@@ -9,7 +9,7 @@ type UploaderResult string
 // Add a string type for UploaderResult
 
 type Uploader interface {
-	Upload(file string) (UploaderResult, error)
+	Upload(key, file string) (UploaderResult, error)
 }
 
 type DatabaseResult string

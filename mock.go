@@ -33,7 +33,7 @@ func NewMockUploader(mockError int) MockUploader {
 	return MockUploader{mockError: mockError}
 }
 
-func (u *MockUploader) Upload(file string) (UploaderResult, error) {
+func (u *MockUploader) Upload(key, file string) (UploaderResult, error) {
 	if u.mockError != 0 {
 		return "", errors.New("error")
 	}
