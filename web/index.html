@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,17 +19,34 @@
 
     <script type="text/javascript" charset="utf-8">
 
-      window.onload = function() {
-        var list = document.getElementById('listings');
-        // Create templatee = '<a name="image" href="{so.url}" />'
+      function mockRequest(responseFn) {
+        responseFn();
+      };
 
-        var images = [
+      function ajaxRequest(responseFn) {
+        var r = new XMLHttpRequest();
+        r.open("POST", "path/to/api", true);
+        r.onreadystatechange = function () {
+            if (r.readyState != 4 || r.status != 200) return;
+            if (responseFn) responseFn(r.responseText);
+        };
+        r.send("banana=yellow");
+      };
+
+      function mockResponse(responseText, renderFn) {
+        // Parse the objects into imageresp[]
+        // Pass the imageresp[] into a renderer function
+        var mockimages = [
           { time:1, url:'test.jpg' },
           { time:2, url:'test.jpg' }
         ];
-
+        renderFn(mockimages);
+      };
+     
+      function renderBasic(images) {
+        var list = document.getElementById('listings');
         var i;
-        for ( i = 0; i < images.length; i++) {
+        for (i = 0; i < images.length; i++) {
           var image = images[i];
           var item = document.createElement('div');
           item.className = 'listitem';
@@ -40,6 +55,12 @@
           item.setAttribute('href', image.url);
           list.appendChild(item);
         }
+      };
+
+      window.onload = function() {
+        mockRequest(function(r) {
+          mockResponse(r, renderBasic)
+        });
       };
     </script>
   </head>

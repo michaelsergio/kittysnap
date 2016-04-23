@@ -3,6 +3,7 @@ package main
 import (
 	//"path/filepath"
 	"fmt"
+	"path/filepath"
 	//"time"
 
 	. "github.com/michaelsergio/kittyspy"
@@ -11,30 +12,32 @@ import (
 type Context struct {
 	uploader Uploader
 	camera   Camera
-}
-
-func RunEverySeconds(seconds uint32, f func()) {
-	// Write image to tmp storage
-	//timer := time.NewTimer(time.Duration(seconds) * time.Second)
-	// TODO: Timer currently does not tick more than once.
-	f()
-
+	db       Database
 }
 
 func main() {
 	camera := NewMockCamera("test.jpg")
 	uploader := NewMockUploader(0)
+	db := NewMemoryDB()
 	//uploader := NewMockUploader(UploadSuccess)
 
-	ctx := Context{uploader: &uploader, camera: &camera}
+	ctx := Context{uploader: &uploader, camera: &camera, db: &db}
 
-	RunEverySeconds(10, func() {
-		imagefile := ctx.camera.TakeImage()
-		result, err := ctx.uploader.Upload(imagefile)
-		if err != nil {
-			fmt.Println("failed to upload:", err.Error())
-			return
-		}
-		fmt.Println("Uploaded:", result)
-	})
+	// TODO: Get fullpath from image
+	imagefile := ctx.camera.TakeImage()
+
+	// Get basename from file
+	key := filepath.Base(imagefile)
+	result, err := ctx.uploader.Upload(key, imagefile)
+	if err != nil {
+		fmt.Println("failed to upload:", err.Error())
+		return
+	}
+	fmt.Println("Uploaded:", result)
+	_, err = db.PutItem(imagefile, imagefile)
+	if err != nil {
+		fmt.Println("failed to put key:", err.Error())
+		return
+	}
+	fmt.Println("Uploaded Key::", imagefile)
 }
