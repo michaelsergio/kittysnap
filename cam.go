@@ -1,4 +1,4 @@
-package kittyspy
+package kittysnap
 
 import (
 	"fmt"
@@ -20,13 +20,13 @@ type CVCamera struct {
 
 func NewCVCamera() CVCamera {
 	/*
-		tmp, err := ioutil.TempDir("", "kittyspy")
+		tmp, err := ioutil.TempDir("", "kittysnap")
 		if err != nil {
 			fmt.Println("Could not get temp directory")
 			tmp = ""
 		}
 	*/
-	tmp := "/tmp/kittyspyimages"
+	tmp := "/tmp/kittysnapimages"
 	return CVCamera{
 		ext:         "jpg",
 		limit:       10, // Take time for lighting and focus

@@ -6,7 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 
-	. "github.com/michaelsergio/kittyspy"
+	. "github.com/michaelsergio/kittysnap"
 )
 
 func main() {

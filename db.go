@@ -1,4 +1,4 @@
-package kittyspy
+package kittysnap
 
 // Add entries to keystore.
 

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	. "github.com/michaelsergio/kittyspy"
+	. "github.com/michaelsergio/kittysnap"
 )
 
 func main() {

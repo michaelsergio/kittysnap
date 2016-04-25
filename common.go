@@ -1,4 +1,4 @@
-package kittyspy
+package kittysnap
 
 type Camera interface {
 	TakeImage() string
