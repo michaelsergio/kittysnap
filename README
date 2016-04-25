@@ -57,10 +57,36 @@ v1:
 * Create a cleaner interface surrounding business logic and AWS integration.
 
 
+Pass in location via cmd line. 
+tmp or var directoy?
+Create a temp directory if one does not exist in var file. > /var/ks/savelocation
+Write path written to log.
+
+
+
+
 
 Cron Job
 =============
 * Write a 1-time task to take a pic, upload to s3, write to db.
 * Call it with cron every hour.
 * Test file write every minute.
+
+
+
+Lazy Log
+=================
+Write images to temp directory savelocation.txt
+Write imagenames written to upload_queue.txt
+Attempt to upload all files in queue.txt
+*  On success: Move line from queue.txt to sent.txt
+*  On failure: Do nothing.
+* Daily: Remove files from sent.txt along with the file itself.
+This provides easy auditing for files that dont get uploaded.
+
+
+
+Immediate
+==================
+Pass paths in via env, provide default.
 
