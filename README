@@ -57,3 +57,10 @@ v1:
 * Create a cleaner interface surrounding business logic and AWS integration.
 
 
+
+Cron Job
+=============
+* Write a 1-time task to take a pic, upload to s3, write to db.
+* Call it with cron every hour.
+* Test file write every minute.
+
