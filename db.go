@@ -3,7 +3,7 @@ package kittysnap
 // Add entries to keystore.
 
 import (
-	"fmt"
+	"log"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -30,7 +30,7 @@ func (db *DynamoDatabase) PutItem(key, value string) (DatabaseResult, error) {
 
 	//curtime := time.Now().Format(time.RFC3339)
 	curtime := time.Now().Format(DbZTime)
-	fmt.Println(curtime)
+	log.Println(curtime)
 	params := &dynamodb.PutItemInput{
 		Item: map[string]*dynamodb.AttributeValue{
 			/*
@@ -55,7 +55,7 @@ func (db *DynamoDatabase) PutItem(key, value string) (DatabaseResult, error) {
 	if err != nil {
 		return "", err
 	}
-	fmt.Println("Dynamo Response:", resp)
+	log.Println("Dynamo Response:", resp)
 	return "", err
 }
 

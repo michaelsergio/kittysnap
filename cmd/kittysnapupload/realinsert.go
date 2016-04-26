@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -11,7 +11,7 @@ import (
 
 func main() {
 	// Seems to be broken
-	fmt.Println("Testing Dynamo Insert")
+	log.Println("Testing Dynamo Insert")
 
 	creds := credentials.NewEnvCredentials()
 	config := aws.NewConfig().
@@ -23,8 +23,8 @@ func main() {
 	db := NewDynamoDatabase(config)
 	resp, err := db.PutItem(key, "world")
 	if err != nil {
-		fmt.Println("Put Error:", err)
+		log.Println("Put Error:", err)
 		return
 	}
-	fmt.Println(resp)
+	log.Println(resp)
 }

@@ -1,7 +1,7 @@
 package main
 
 import (
-	//"fmt"
+	//"log"
 	"os"
 
 	. "github.com/michaelsergio/kittysnap"
@@ -12,6 +12,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	//fmt.Println(serialized)
+	//log.Println(serialized)
 	os.Stdout.Write(serialized)
 }

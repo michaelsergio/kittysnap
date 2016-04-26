@@ -2,10 +2,12 @@ package kittysnap
 
 import (
 	"fmt"
+	"log"
 	//"io/ioutil"
 	"os"
 	"path"
-	// "time"
+	"strconv"
+	"time"
 
 	"github.com/lazywei/go-opencv/opencv"
 )
@@ -60,22 +62,22 @@ func (cam *CVCamera) TakeImage() string {
 
 // Returns path to written image.
 func (cam *CVCamera) writeImage(img *opencv.IplImage, id int) string {
-	name := fmt.Sprintf("%s%05d.%s", cam.base, id, cam.ext)
-	//timestamp := strconv.FormatInt(time.Now().UTC().UnixNano(), 10)
-	//name := fmt.Sprintf("%s.%s", timestamp, ext)
+	//name := fmt.Sprintf("%s%05d.%s", cam.base, id, cam.ext)
+	timestamp := strconv.FormatInt(time.Now().UTC().UnixNano(), 10)
+	name := fmt.Sprintf("%s.%s", timestamp, cam.ext)
 	filename := path.Join(cam.dir, name)
 
 	// Check if cam.dir exists. Create it if it doesnt.
-	err := os.MkdirAll(filename, 0644)
-	if err != nil {
-		fmt.Println("Could not create dir:", cam.dir, "err", err)
+	err := os.MkdirAll(cam.dir, 0755)
+	if err != nil && os.IsNotExist(err) {
+		log.Println("Could not create dir:", cam.dir, "err", err)
 		return ""
 	}
 
 	// Must test failing to save (use bad ext)
 	rv := opencv.SaveImage(filename, img, 0)
 	if rv != 1 {
-		fmt.Println("Failed to save image:", filename, "code", rv)
+		log.Println("Failed to save image:", filename, "code", rv)
 		return ""
 		//return "error"
 	} else {
