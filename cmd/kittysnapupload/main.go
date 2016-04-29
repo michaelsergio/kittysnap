@@ -16,9 +16,10 @@ type Context struct {
 }
 
 func main() {
-	camera := NewMockCamera("test.jpg")
-	uploader := NewMockUploader(0)
-	db := NewMemoryDB()
+	conf := ReadFromEnv()
+	camera := NewCVCamera(&conf)
+	uploader := NewS3Uploader(&conf)
+	db := NewDynamoDatabase(&conf)
 	//uploader := NewMockUploader(UploadSuccess)
 
 	ctx := Context{uploader: &uploader, camera: &camera, db: &db}

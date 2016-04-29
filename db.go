@@ -18,9 +18,14 @@ type DynamoDatabase struct {
 	dyndb     *dynamodb.DynamoDB
 }
 
-func NewDynamoDatabase(awsconf *aws.Config) DynamoDatabase {
+func NewDynamoDatabase(conf *Conf) DynamoDatabase {
+	awsconf := aws.NewConfig().
+		WithRegion(conf.awsRegion).
+		WithCredentials(conf.awsCreds).
+		WithCredentialsChainVerboseErrors(conf.awsChainVerbose)
+
 	return DynamoDatabase{
-		tablename: "catpics",
+		tablename: conf.dbTable,
 		dyndb:     dynamodb.New(session.New(), awsconf),
 	}
 
