@@ -1,9 +1,20 @@
 # Include AWS keys
 include Keys
 
+KEY_ENV=AWS_ACCESS_KEY_ID=$(ID) AWS_SECRET_ACCESS_KEY=$(KEY) 
+
 run:
-	AWS_ACCESS_KEY_ID=$(ID) AWS_SECRET_ACCESS_KEY=$(KEY) go run cmd/kittyspyupload/main.go
+	$(KEY_ENV) go run cmd/kittyspyupload/main.go
+
+run-dyn:
+	$(KEY_ENV) go run cmd/kittyspyupload/doinsert.go
 
 test:
 	go test -v 
+
+fake-s3:
+	fakes3 -r $(CURDIR)/mock -p 4567 
+
+fake-dynamo:
+	dynamodb-local
 
