@@ -3,7 +3,6 @@ package kittysnap
 import (
 	"fmt"
 	"log"
-	//"io/ioutil"
 	"os"
 	"path"
 	"strconv"
