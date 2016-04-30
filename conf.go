@@ -22,7 +22,7 @@ func UseDefaults() Conf {
 		camExt:          "jpg",
 		camLimit:        10,
 		camOverwrite:    true,
-		camDir:          "/Users/mike_sergio/.kittyspy",
+		camDir:          "/Users/mike_sergio/.kittysnap",
 		camBasename:     "img-",
 		dbTable:         "catpics",
 		uploadBucket:    "kittysnap",
@@ -35,6 +35,12 @@ func UseDefaults() Conf {
 // Unimplemented
 func ReadFromEnv() Conf {
 	conf := UseDefaults()
+	/*
+		if val := os.Getenv("KS_CAM_EXT"); val != "" {
+			// TEST!!!
+			conf.camExt = val
+		}
+	*/
 	// TODO: Fill in
 	return conf
 }
