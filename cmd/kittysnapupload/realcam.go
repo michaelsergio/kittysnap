@@ -9,7 +9,8 @@ import (
 )
 
 func main() {
-	camera := NewCVCamera()
+	conf := UseDefaults()
+	camera := NewCVCamera(&conf)
 	imagefile := camera.TakeImage()
 	fmt.Println(imagefile)
 }

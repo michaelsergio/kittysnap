@@ -21,17 +21,15 @@ type S3Uploader struct {
 	bucket string
 }
 
-func NewS3Uploader() S3Uploader {
-	bucket := "kittysnap"
-	creds := credentials.NewEnvCredentials()
-	// Is my s3 instance in the EAST or WEST region????
+func NewS3Uploader(conf *Conf) S3Uploader {
 	config := aws.NewConfig().
-		WithRegion("us-east-1").
-		WithCredentials(creds).
-		WithCredentialsChainVerboseErrors(true)
-	// config := &aws.Config{Region: aws.String("us-west-2")}
-	svc := s3.New(session.New(), config)
-	uploader := S3Uploader{svc: svc, bucket: bucket}
+		WithRegion(conf.awsRegion).
+		WithCredentials(conf.awsCreds).
+		WithCredentialsChainVerboseErrors(conf.awsChainVerbose)
+	uploader := S3Uploader{
+		svc:    s3.New(session.New(), config),
+		bucket: conf.uploadBucket,
+	}
 	return uploader
 }
 
@@ -104,7 +102,7 @@ func Upload() {
 	// TODO: define Bucket name
 	// Replace Body with file IO reader.
 	// TODO define keyname
-	bucket := "kittysnap"
+	bucket := "kittyspy"
 	key := "test"
 	uploadResult, err := svc.PutObject(&s3.PutObjectInput{
 		Body:   strings.NewReader("Hello World!"),

@@ -3,6 +3,7 @@ package kittysnap
 import (
 	"fmt"
 	//"io/ioutil"
+	"os"
 	"path"
 	// "time"
 
@@ -18,21 +19,13 @@ type CVCamera struct {
 	imagesTaken int
 }
 
-func NewCVCamera() CVCamera {
-	/*
-		tmp, err := ioutil.TempDir("", "kittysnap")
-		if err != nil {
-			fmt.Println("Could not get temp directory")
-			tmp = ""
-		}
-	*/
-	tmp := "/tmp/kittysnapimages"
+func NewCVCamera(conf *Conf) CVCamera {
 	return CVCamera{
-		ext:         "jpg",
-		limit:       10, // Take time for lighting and focus
-		overwrite:   true,
-		dir:         tmp,
-		base:        "img-",
+		ext:         conf.camExt,
+		limit:       conf.camLimit, // Take time for lighting and focus
+		overwrite:   conf.camOverwrite,
+		dir:         conf.camDir,
+		base:        conf.camBasename,
 		imagesTaken: 0,
 	}
 }
@@ -71,6 +64,13 @@ func (cam *CVCamera) writeImage(img *opencv.IplImage, id int) string {
 	//timestamp := strconv.FormatInt(time.Now().UTC().UnixNano(), 10)
 	//name := fmt.Sprintf("%s.%s", timestamp, ext)
 	filename := path.Join(cam.dir, name)
+
+	// Check if cam.dir exists. Create it if it doesnt.
+	err := os.MkdirAll(filename, 0644)
+	if err != nil {
+		fmt.Println("Could not create dir:", cam.dir, "err", err)
+		return ""
+	}
 
 	// Must test failing to save (use bad ext)
 	rv := opencv.SaveImage(filename, img, 0)
