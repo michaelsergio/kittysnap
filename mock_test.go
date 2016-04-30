@@ -11,3 +11,11 @@ func TestMockUploadSuccess(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestMockError(t *testing.T) {
+	uploader := NewMockUploader(1)
+	_, err := uploader.Upload("test.jpg")
+	if err == nil {
+		t.Fail()
+	}
+}
