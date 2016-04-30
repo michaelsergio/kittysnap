@@ -3,7 +3,8 @@ include Keys
 
 KEY_ENV=AWS_ACCESS_KEY_ID=$(ID) AWS_SECRET_ACCESS_KEY=$(KEY) 
 
-BIN_NAME=kittysnap
+SNAP_BIN_NAME=kittysnap
+UPLOAD_BIN_NAME=kittysnapuploader
 
 run-mock:
 	$(KEY_ENV) go run cmd/kittysnapupload/mock_main.go
@@ -48,4 +49,5 @@ fake-dynamo:
 	dynamodb-local
 
 build:
-	go build -o $(BIN_NAME) cmd/kittysnapupload/main.go
+	go build -o $(SNAP_BIN_NAME) cmd/kittysnapupload/kittysnap.go
+	#go build -o $(UPLOAD_BIN_NAME) cmd/kittysnapupload/main.go
