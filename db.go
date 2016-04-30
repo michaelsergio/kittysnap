@@ -6,41 +6,52 @@ import (
 	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-func PutImageEntry(value string) {
-	tablename := "kittyspy"
-	key := "imagename"
+type DynamoDatabase struct {
+	tablename string
+	dyndb     *dynamodb.DynamoDB
+}
 
-	creds := credentials.NewEnvCredentials()
-	config := aws.NewConfig().
-		WithRegion("us-east-1").
-		WithCredentials(creds).
-		WithCredentialsChainVerboseErrors(true)
-	dyndb := dynamodb.New(session.New(), config)
+func NewDynamoDatabase(awsconf *aws.Config) DynamoDatabase {
+	return DynamoDatabase{
+		tablename: "catpics",
+		dyndb:     dynamodb.New(session.New(), awsconf),
+	}
 
+}
+
+func (db *DynamoDatabase) PutItem(key, value string) (DatabaseResult, error) {
 	params := &dynamodb.PutItemInput{
 		Item: map[string]*dynamodb.AttributeValue{
-			key: {
+			/*
+				key: {
+					S: aws.String(value),
+				},
+			*/
+			"filename": {
+				S: aws.String(key),
+			},
+			"s3id": {
+				S: aws.String(value),
+			},
+			"date": {
 				S: aws.String(value),
 			},
 		},
-		TableName: aws.String(tablename), // Required
+		TableName: aws.String(db.tablename), // Required
 	}
 
-	resp, err := dyndb.PutItem(params)
-
+	resp, err := db.dyndb.PutItem(params)
 	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
-		return
+		return "", err
 	}
+	fmt.Println("Dynamo Response:", resp)
+	return "", err
+}
 
-	// Pretty-print the response data.
-	fmt.Println(resp)
-
+func (db *DynamoDatabase) GetItem(key string) (DatabaseResult, error) {
+	return "", nil
 }

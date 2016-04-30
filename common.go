@@ -11,3 +11,9 @@ type UploaderResult string
 type Uploader interface {
 	Upload(file string) (UploaderResult, error)
 }
+
+type DatabaseResult string
+type Database interface {
+	PutItem(key, value string) (DatabaseResult, error)
+	GetItem(key string) (DatabaseResult, error)
+}

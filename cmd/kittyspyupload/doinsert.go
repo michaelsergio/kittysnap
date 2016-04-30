@@ -9,5 +9,16 @@ import (
 func main() {
 	fmt.Println("Testing put")
 
-	PutImageEntry("testval")
+	img_file := "test.jpg"
+
+	uploader, err := NewMockFSUploader()
+	if err != nil {
+		panic(err)
+	}
+	res, err := uploader.Upload(img_file)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Upload result", res)
+	fmt.Println("Tmp Dir:", uploader)
 }

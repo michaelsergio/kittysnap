@@ -9,6 +9,12 @@ run:
 run-dyn:
 	$(KEY_ENV) go run cmd/kittyspyupload/doinsert.go
 
+run-json:
+	go run cmd/kittyspyupload/jsonserver.go
+
+run-realinsert:
+	$(KEY_ENV) go run cmd/kittyspyupload/realinsert.go
+
 test:
 	go test -v 
 
