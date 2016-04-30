@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	//"time"
 
-	. "github.com/michaelsergio/kittyspy"
+	. "github.com/michaelsergio/kittysnap"
 )
 
 type Context struct {

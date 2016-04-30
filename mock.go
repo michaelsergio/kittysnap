@@ -1,4 +1,4 @@
-package kittyspy
+package kittysnap
 
 import (
 	"errors"
@@ -46,7 +46,7 @@ type MockFSUploader struct {
 }
 
 func NewMockFSUploader() (*MockFSUploader, error) {
-	path, err := ioutil.TempDir("", "kittyspymock")
+	path, err := ioutil.TempDir("", "kittysnapmock")
 	if err != nil {
 		return nil, errors.New("NewMockFSUploader failed to create dir")
 	}

@@ -1,4 +1,4 @@
-package kittyspy
+package kittysnap
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ type S3Uploader struct {
 }
 
 func NewS3Uploader() S3Uploader {
-	bucket := "kittyspy"
+	bucket := "kittysnap"
 	creds := credentials.NewEnvCredentials()
 	// Is my s3 instance in the EAST or WEST region????
 	config := aws.NewConfig().
@@ -104,7 +104,7 @@ func Upload() {
 	// TODO: define Bucket name
 	// Replace Body with file IO reader.
 	// TODO define keyname
-	bucket := "kittyspy"
+	bucket := "kittysnap"
 	key := "test"
 	uploadResult, err := svc.PutObject(&s3.PutObjectInput{
 		Body:   strings.NewReader("Hello World!"),
