@@ -3,6 +3,7 @@ package kittyspy
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings" // replace with io reader later.
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -13,6 +14,48 @@ import (
 
 func ListContents() {
 
+}
+
+type S3Uploader struct {
+	svc    *s3.S3
+	bucket string
+}
+
+func NewS3Uploader() S3Uploader {
+	bucket := "kittyspy"
+	creds := credentials.NewEnvCredentials()
+	// Is my s3 instance in the EAST or WEST region????
+	config := aws.NewConfig().
+		WithRegion("us-east-1").
+		WithCredentials(creds).
+		WithCredentialsChainVerboseErrors(true)
+	// config := &aws.Config{Region: aws.String("us-west-2")}
+	svc := s3.New(session.New(), config)
+	uploader := S3Uploader{svc: svc, bucket: bucket}
+	return uploader
+}
+
+func (up *S3Uploader) Upload(key string, filename string) (UploaderResult, error) {
+	// TODO: define Bucket name
+	// Replace Body with file IO reader.
+	// TODO define keyname
+
+	file, err := os.Open(filename)
+	if err != nil {
+		return "", err
+	}
+
+	uploadResult, err := up.svc.PutObject(&s3.PutObjectInput{
+		Body:   file,
+		Bucket: &up.bucket,
+		Key:    &key,
+	})
+	if err != nil {
+		return "", err
+	}
+
+	ures := UploaderResult(uploadResult.String())
+	return ures, nil
 }
 
 func Upload() {
