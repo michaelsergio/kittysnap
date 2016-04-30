@@ -1,0 +1,36 @@
+<html> 
+
+  <head>
+    <title> - List Images</title>
+    <script type="text/javascript" charset="utf-8">
+
+      window.onload = function() {
+        var list = document.getElementById('listings');
+        // Create templatee = '<a name="image" href="{so.url}" />'
+
+        var images = [
+          { time:1, url:'test.jpg' },
+          { time:2, url:'test.jpg' }
+        ];
+
+        var i;
+        for ( i = 0; i < images.length; i++) {
+          var image = images[i];
+          var item = document.createElement('div');
+          item.className = 'listitem';
+          item.setAttribute('name', "image-" + image.time);
+          item.innerText = "Time: " + image.time;
+          item.setAttribute('href', image.url);
+          list.appendChild(item);
+        }
+      };
+    </script>
+  </head>
+
+  <!-- Redo with bootstrap html5 template -->
+  
+  <body>
+    <h3>List</h3>
+    <div id="listings" />
+  </body>
+</html>
