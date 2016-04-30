@@ -2,20 +2,21 @@ package main
 
 import (
 	//"path/filepath"
-	"fmt"
+	"log"
 	//"time"
 
 	. "github.com/michaelsergio/kittysnap"
 )
 
 func main() {
-	uploader := NewS3Uploader()
+	conf := UseDefaults()
+	uploader := NewS3Uploader(&conf)
 
 	imagefile := "test.jpg"
 	result, err := uploader.Upload("sample1", imagefile)
 	if err != nil {
-		fmt.Println("failed to upload:", err.Error())
+		log.Println("failed to upload:", err.Error())
 		return
 	}
-	fmt.Println(result)
+	log.Println(result)
 }

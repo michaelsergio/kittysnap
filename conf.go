@@ -22,7 +22,7 @@ func UseDefaults() Conf {
 		camExt:          "jpg",
 		camLimit:        10,
 		camOverwrite:    true,
-		camDir:          "~/.kittyspy",
+		camDir:          "/Users/mike_sergio/.kittyspy",
 		camBasename:     "img-",
 		dbTable:         "catpics",
 		uploadBucket:    "kittysnap",

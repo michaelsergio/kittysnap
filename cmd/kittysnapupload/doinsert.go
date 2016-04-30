@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	. "github.com/michaelsergio/kittysnap"
 )
 
 func main() {
-	fmt.Println("Testing put")
+	log.Println("Testing put")
 
 	img_file := "test.jpg"
 
@@ -19,6 +19,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Upload result", res)
-	fmt.Println("Tmp Dir:", uploader)
+	log.Println("Upload result", res)
+	log.Println("Tmp Dir:", uploader)
 }

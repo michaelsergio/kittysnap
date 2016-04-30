@@ -2,7 +2,7 @@ package main
 
 import (
 	//"path/filepath"
-	"fmt"
+	"log"
 	//"time"
 
 	. "github.com/michaelsergio/kittysnap"
@@ -32,9 +32,9 @@ func main() {
 		imagefile := ctx.camera.TakeImage()
 		result, err := ctx.uploader.Upload(imagefile, imagefile)
 		if err != nil {
-			fmt.Println("failed to upload:", err.Error())
+			log.Println("failed to upload:", err.Error())
 			return
 		}
-		fmt.Println("Uploaded:", result)
+		log.Println("Uploaded:", result)
 	})
 }

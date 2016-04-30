@@ -2,7 +2,7 @@ package main
 
 import (
 	//"path/filepath"
-	"fmt"
+	"log"
 	"path/filepath"
 	//"time"
 
@@ -30,14 +30,14 @@ func main() {
 	key := filepath.Base(imagefile)
 	result, err := ctx.uploader.Upload(key, imagefile)
 	if err != nil {
-		fmt.Println("failed to upload:", err.Error())
+		log.Println("failed to upload:", err.Error())
 		return
 	}
-	fmt.Println("Uploaded:", result)
+	log.Println("Uploaded:", result)
 	_, err = db.PutItem(imagefile, imagefile)
 	if err != nil {
-		fmt.Println("failed to put key:", err.Error())
+		log.Println("failed to put key:", err.Error())
 		return
 	}
-	fmt.Println("Uploaded Key::", imagefile)
+	log.Println("Uploaded Key::", imagefile)
 }
