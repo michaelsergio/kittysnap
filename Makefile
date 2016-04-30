@@ -8,6 +8,12 @@ BIN_NAME=kittysnap
 run-mock:
 	$(KEY_ENV) go run cmd/kittysnapupload/mock_main.go
 
+snap:
+	$(KEY_ENV) go run cmd/kittysnapupload/kittysnap.go
+
+uploader:
+	$(KEY_ENV) go run cmd/kittysnapupload/kittysnapuploader.go
+
 run-allinone:
 	$(KEY_ENV) go run cmd/kittysnapupload/allinone.go
 
