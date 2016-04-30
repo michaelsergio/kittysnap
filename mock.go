@@ -4,6 +4,11 @@ import (
 	"errors"
 )
 
+const (
+	UploadSucess = 0
+	UploadFailure
+)
+
 type MockCamera struct {
 	imagepath string
 }
