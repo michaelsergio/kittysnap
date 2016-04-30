@@ -23,6 +23,9 @@ run-realinsert:
 run-uploadsamplefile:
 	$(KEY_ENV) go run cmd/kittyspyupload/upload_real.go
 
+run-cam:
+	go run cmd/kittyspyupload/realcam.go
+
 test:
 	go test -v 
 

@@ -1,3 +1,5 @@
 run.sh # Let's not commit the keys.
 *.swp
 Keys
+kittysnap
+webcam.go.ex
