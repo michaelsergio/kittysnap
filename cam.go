@@ -25,7 +25,7 @@ func NewCVCamera(conf *Conf) CVCamera {
 		ext:         conf.camExt,
 		limit:       conf.camLimit, // Take time for lighting and focus
 		overwrite:   conf.camOverwrite,
-		dir:         conf.camDir,
+		dir:         conf.CamDirCreated,
 		base:        conf.camBasename,
 		imagesTaken: 0,
 	}

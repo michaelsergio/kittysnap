@@ -8,10 +8,11 @@ type Conf struct {
 	camExt          string
 	camLimit        int
 	camOverwrite    bool
-	camDir          string
+	CamDirCreated   string
 	camBasename     string
 	dbTable         string
 	uploadBucket    string
+	UploadedDir     string
 	awsRegion       string
 	awsCreds        *credentials.Credentials
 	awsChainVerbose bool
@@ -22,7 +23,7 @@ func UseDefaults() Conf {
 		camExt:          "jpg",
 		camLimit:        10,
 		camOverwrite:    true,
-		camDir:          "/Users/mike_sergio/.kittysnap",
+		CamDirCreated:   "/Users/mike_sergio/.kittysnap/created",
 		camBasename:     "img-",
 		dbTable:         "catpics",
 		uploadBucket:    "kittysnap",
