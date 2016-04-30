@@ -4,11 +4,14 @@ package kittyspy
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
+
+const DbZTime = "2006-01-02T15:04:05Z"
 
 type DynamoDatabase struct {
 	tablename string
@@ -24,6 +27,10 @@ func NewDynamoDatabase(awsconf *aws.Config) DynamoDatabase {
 }
 
 func (db *DynamoDatabase) PutItem(key, value string) (DatabaseResult, error) {
+
+	//curtime := time.Now().Format(time.RFC3339)
+	curtime := time.Now().Format(DbZTime)
+	fmt.Println(curtime)
 	params := &dynamodb.PutItemInput{
 		Item: map[string]*dynamodb.AttributeValue{
 			/*
@@ -38,7 +45,7 @@ func (db *DynamoDatabase) PutItem(key, value string) (DatabaseResult, error) {
 				S: aws.String(value),
 			},
 			"date": {
-				S: aws.String(value),
+				S: aws.String(curtime),
 			},
 		},
 		TableName: aws.String(db.tablename), // Required
