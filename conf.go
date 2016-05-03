@@ -26,7 +26,7 @@ func UseDefaults() Conf {
 		CamDirCreated:   "/Users/mike_sergio/.kittysnap/created",
 		camBasename:     "img-",
 		dbTable:         "catpics",
-		uploadBucket:    "kittysnap",
+		uploadBucket:    "kittysnap.msergio.com",
 		awsRegion:       "us-east-1",
 		awsCreds:        credentials.NewEnvCredentials(),
 		awsChainVerbose: true,

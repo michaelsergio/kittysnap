@@ -47,6 +47,6 @@ func (up *S3Uploader) Upload(key, filename string) (UploaderResult, error) {
 		return "", err
 	}
 
-	ures := UploaderResult(uploadResult.String())
-	return ures, nil
+	upRes := UploaderResult(uploadResult.String())
+	return upRes, nil
 }

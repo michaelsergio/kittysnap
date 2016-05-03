@@ -51,3 +51,6 @@ fake-dynamo:
 build:
 	go build -o $(SNAP_BIN_NAME) cmd/kittysnapupload/kittysnap.go
 	#go build -o $(UPLOAD_BIN_NAME) cmd/kittysnapupload/main.go
+
+clean:
+	rm -f $(SNAP_BIN_NAME) $(UPLOAD_BIN_NAME)
