@@ -18,16 +18,15 @@ type S3Uploader struct {
 	bucket string
 }
 
-func NewS3Uploader(conf *Conf) S3Uploader {
+func NewS3Uploader(conf *Conf) *S3Uploader {
 	config := aws.NewConfig().
 		WithRegion(conf.awsRegion).
 		WithCredentials(conf.awsCreds).
 		WithCredentialsChainVerboseErrors(conf.awsChainVerbose)
-	uploader := S3Uploader{
+	return &S3Uploader{
 		svc:    s3.New(session.New(), config),
 		bucket: conf.uploadBucket,
 	}
-	return uploader
 }
 
 func (up *S3Uploader) Upload(key, filename string) (UploaderResult, error) {

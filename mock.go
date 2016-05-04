@@ -54,7 +54,7 @@ func NewMockFSUploader() (*MockFSUploader, error) {
 }
 
 // An absolute path input will likely break this.
-func (u *MockFSUploader) Upload(file string) (UploaderResult, error) {
+func (u *MockFSUploader) Upload(key, file string) (UploaderResult, error) {
 	// Check if file exists. If it does not, noop.
 	if _, err := os.Stat(file); err != nil {
 		if os.IsNotExist(err) {
@@ -62,7 +62,7 @@ func (u *MockFSUploader) Upload(file string) (UploaderResult, error) {
 		}
 	}
 	// dont really copy
-	newpath := filepath.Join(u.dir, file)
+	newpath := filepath.Join(u.dir, filepath.Base(file))
 	abspath, abserr := filepath.Abs(file)
 	if abserr != nil {
 		return "", abserr

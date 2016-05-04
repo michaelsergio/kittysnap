@@ -2,6 +2,7 @@ package kittysnap
 
 import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
+	"path/filepath"
 )
 
 type Conf struct {
@@ -11,6 +12,7 @@ type Conf struct {
 	CamDirCreated   string
 	camBasename     string
 	dbTable         string
+	location        string
 	uploadBucket    string
 	UploadedDir     string
 	awsRegion       string
@@ -19,14 +21,17 @@ type Conf struct {
 }
 
 func UseDefaults() Conf {
+	workingDir := "/Users/mike_sergio/.kittysnap"
 	return Conf{
 		camExt:          "jpg",
 		camLimit:        10,
 		camOverwrite:    true,
-		CamDirCreated:   "/Users/mike_sergio/.kittysnap/created",
+		CamDirCreated:   filepath.Join(workingDir, "created"),
 		camBasename:     "img-",
 		dbTable:         "catpics",
+		location:        "UnknownLocation",
 		uploadBucket:    "kittysnap",
+		UploadedDir:     filepath.Join(workingDir, "uploaded"),
 		awsRegion:       "us-east-1",
 		awsCreds:        credentials.NewEnvCredentials(),
 		awsChainVerbose: true,

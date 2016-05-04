@@ -17,10 +17,12 @@ type FileUploader struct {
 
 func main() {
 	conf := ReadFromEnv()
+	//uploader, _ := NewMockFSUploader()
+	//db := NewMemoryDB()
 	uploader := NewS3Uploader(&conf)
 	db := NewDynamoDatabase(&conf)
 
-	fu := FileUploader{uploader: &uploader, conf: &conf, db: &db}
+	fu := FileUploader{uploader: uploader, conf: &conf, db: &db}
 
 	filepath.Walk(conf.CamDirCreated, fu.walk)
 }
@@ -54,13 +56,17 @@ func (fu *FileUploader) walk(path string, info os.FileInfo, err error) error {
 	}
 	log.Println("Uploaded Key:", key)
 
-	if err := MkdirAll(fu.conf.UploadedDir, 0755); err != nil {
+	log.Println("Moving to upload dir: ", fu.conf.UploadedDir)
+	if err := os.MkdirAll(fu.conf.UploadedDir, 0755); err != nil {
+		log.Println(err)
 		return err
 	}
 	moveTo := filepath.Join(fu.conf.UploadedDir, key)
 	if err := os.Rename(path, moveTo); err != nil {
+		log.Println(err)
 		return err
 	}
+	log.Println("Moved to uploaded dir")
 
 	return nil
 }
