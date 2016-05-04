@@ -62,7 +62,7 @@ func (cam *CVCamera) TakeImage() string {
 // Returns path to written image.
 func (cam *CVCamera) writeImage(img *opencv.IplImage, id int) string {
 	//name := fmt.Sprintf("%s%05d.%s", cam.base, id, cam.ext)
-	timestamp := strconv.FormatInt(time.Now().UTC().UnixNano(), 10)
+	timestamp := strconv.FormatInt(time.Now().UTC().Unix(), 10)
 	name := fmt.Sprintf("%s.%s", timestamp, cam.ext)
 	filename := path.Join(cam.dir, name)
 
