@@ -3,7 +3,11 @@ package kittysnap
 // Add entries to keystore.
 
 import (
+	"fmt"
 	"log"
+	"path/filepath"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -15,6 +19,7 @@ const DbZTime = "2006-01-02T15:04:05Z"
 
 type DynamoDatabase struct {
 	tablename string
+	location  string
 	dyndb     *dynamodb.DynamoDB
 }
 
@@ -32,25 +37,35 @@ func NewDynamoDatabase(conf *Conf) DynamoDatabase {
 }
 
 func (db *DynamoDatabase) PutItem(key, value string) (DatabaseResult, error) {
+	// The value should be the s3 location
+	s3path := value
 
-	//curtime := time.Now().Format(time.RFC3339)
-	curtime := time.Now().Format(DbZTime)
-	log.Println(curtime)
+	// The key MUST be a filename in the form  123124.jpg
+
+	// Pull time out of filename as unix time
+	unixtimeStr := strings.TrimSuffix(key, filepath.Ext(key))
+	unixSec, err := strconv.Atoi(unixtimeStr)
+
+	taken := time.Unix(int64(unixSec), 0)
+	yyyy, ww := taken.ISOWeek()
+
+	yearweek := fmt.Sprintf("%s-%s", yyyy, ww)
+	//curtime := time.Now().Format(DbZTime)
+	//log.Println(curtimeI)
+	// TODO: Fix parameters
 	params := &dynamodb.PutItemInput{
 		Item: map[string]*dynamodb.AttributeValue{
-			/*
-				key: {
-					S: aws.String(value),
-				},
-			*/
-			"filename": {
-				S: aws.String(key),
+			"year-weeknum": {
+				S: aws.String(yearweek),
 			},
-			"s3id": {
-				S: aws.String(value),
+			"unixtime": {
+				N: aws.String(unixtimeStr),
 			},
-			"date": {
-				S: aws.String(curtime),
+			"s3url": {
+				S: aws.String(s3path),
+			},
+			"location": {
+				S: aws.String(db.location),
 			},
 		},
 		TableName: aws.String(db.tablename), // Required
