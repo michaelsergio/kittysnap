@@ -5,6 +5,7 @@ Installation
     # Set your access keys
     # edit kittysnap.cron user path
     # Set camdir created.
+    make build
     crontab kittysnap.cron
 
 Create an enviorment file so I dont need to set camdir created.
