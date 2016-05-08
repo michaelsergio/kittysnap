@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	//"time"
 
 	. "github.com/michaelsergio/kittysnap"
 )

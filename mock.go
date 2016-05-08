@@ -20,8 +20,8 @@ func NewMockCamera(testImg string) MockCamera {
 	return MockCamera{imagepath: testImg}
 }
 
-func (c *MockCamera) TakeImage() string {
-	return c.imagepath
+func (c *MockCamera) TakeImage() (string, error) {
+	return c.imagepath, nil
 }
 
 // Takes only result, no input parameters matter

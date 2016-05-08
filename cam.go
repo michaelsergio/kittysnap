@@ -1,6 +1,7 @@
 package kittysnap
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -31,10 +32,10 @@ func NewCVCamera(conf *Conf) CVCamera {
 	}
 }
 
-func (cam *CVCamera) TakeImage() string {
+func (cam *CVCamera) TakeImage() (string, error) {
 	capture := opencv.NewCameraCapture(0)
 	if capture == nil {
-		return "error"
+		return "", errors.New("capture error")
 	}
 
 	filename := "error"
@@ -54,7 +55,7 @@ func (cam *CVCamera) TakeImage() string {
 			filename = cam.writeImage(img, cam.imagesTaken)
 		}
 	}
-	return filename
+	return filename, nil
 }
 
 // Handle Errors in a non sloppy manner.

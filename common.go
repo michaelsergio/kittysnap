@@ -1,7 +1,7 @@
 package kittysnap
 
 type Camera interface {
-	TakeImage() string
+	TakeImage() (string, error)
 }
 
 type UploaderResult string
