@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	. "github.com/michaelsergio/kittysnap"
 )
@@ -36,6 +37,12 @@ func (fu *FileUploader) walk(path string, info os.FileInfo, err error) error {
 
 	// Do nothing on directories
 	if pathinfo.IsDir() {
+		log.Println("Ignoring dir:", path)
+		return nil
+	}
+	// Do nothing on dotfiles / Damn .DS_STOREs
+	if strings.HasPrefix(pathinfo.Name(), ".") {
+		log.Println("Ignoring dotfile:", path)
 		return nil
 	}
 
