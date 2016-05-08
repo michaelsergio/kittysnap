@@ -1,3 +1,15 @@
+Installation
+==============
+
+    cp Keys.example Keys
+    # Set your access keys
+    # edit kittysnap.cron user path
+    # Set camdir created.
+    crontab kittysnap.cron
+
+Create an enviorment file so I dont need to set camdir created.
+
+
 Infrastructure
 ==================
 
